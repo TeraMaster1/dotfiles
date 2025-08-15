@@ -123,3 +123,5 @@ super + {Left,Down,Up,Right}
 # reset keymaps
 super + alt + r
   setxkbmap -layout se,se,ru dvorak,, -option ctrl:nocaps,grp:alt_shift_toggle
+super + alt + q
+  setxkbmap se

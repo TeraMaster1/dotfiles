@@ -2,8 +2,10 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-bspc monitor HDMI-A-0 -d I
-bspc monitor DisplayPort-1 -d II III IV V VI VII VIII IX X
+#bspc monitor HDMI-A-0 -d I
+#bspc monitor DisplayPort-1 -d II III IV V VI VII VIII IX X
+
+bspc monitor HDMI-A-0 -d I II III IV V VI VII VIII IX X
 
 bspc config border_width         1
 bspc config window_gap          12
@@ -18,10 +20,9 @@ sxhkd &
 picom --config $HOME/.config/picom/picom.conf -b &
 polybar &
 feh --bg-fill /usr/share/backgrounds/gnome/blobs-d.svg &
-xrandr --auto --output HDMI-A-0 --left-of DisplayPort-1 & 
+#xrandr --auto --output HDMI-A-0 --left-of DisplayPort-1 & 
 setxkbmap -layout se,se,ru dvorak,, -option ctrl:nocaps,grp:alt_shift_toggle &
 /usr/bin/gentoo-pipewire-launcher restart &
+/usr/bin/gnome-keyring-daemon &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 dbus-update-activation-environment --all &
-/usr/bin/emacs --daemon &
-wmname LG3D
