@@ -9,6 +9,8 @@ alias ls='ls --color'
 alias grep='grep --color'
 PS1='[\u@\h \W]\$ '
 
+export PATH=~/.config/emacs/bin/:$PATH
+
 # Use bash-completion, if available
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
     . /usr/share/bash-completion/bash_completion
