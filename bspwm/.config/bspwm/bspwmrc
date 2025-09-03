@@ -20,7 +20,7 @@ sxhkd &
 picom --config $HOME/.config/picom/picom.conf -b &
 polybar &
 feh --bg-fill /usr/share/backgrounds/gnome/blobs-d.svg &
-#xrandr --auto --output HDMI-A-0 --left-of DisplayPort-1 & 
+/usr/bin/emacs --daemon &
 setxkbmap -layout se,se,ru dvorak,, -option ctrl:nocaps,grp:alt_shift_toggle &
 /usr/bin/gentoo-pipewire-launcher restart &
 /usr/bin/gnome-keyring-daemon &
