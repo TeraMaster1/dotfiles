@@ -127,3 +127,6 @@ super + alt + s
   setxkbmap se
 super + alt + c 
   setxkbmap ru
+
+super + ctrl + t
+  flameshot gui
