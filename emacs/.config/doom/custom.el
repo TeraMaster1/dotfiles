@@ -6,6 +6,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages '(company-irony-c-headers company-mode lsp-mode)))
 (setq lsp-auto-configure 1)
+(setq-default tab-width 2)
 (setf (lsp-session-folders-blocklist (lsp-session)) nil)
 (lsp--persist-session (lsp-session))
 (custom-set-faces
