@@ -33,6 +33,11 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
     -- add your plugins here
+    {"folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    },
     {"mason-org/mason.nvim", opts = {}},
     {"mason-org/mason-lspconfig.nvim", opts = {
       ensure_installed = {
@@ -103,7 +108,10 @@ require("lazy").setup({
 
     end },
 
-    {"nvim-telescope/telescope.nvim", opts = {}},
+    {"nvim-telescope/telescope.nvim",
+    
+    }, 
+    {"nvim-telescope/telescope-fzf-native.nvim"},
     {"hrsh7th/cmp-nvim-lsp", opts = {}},
   },
   -- Configure any other settings here. See the documentation for more details.
@@ -120,9 +128,15 @@ cmp.setup({
     { name = "buffer" },    -- Buffer completion
   },
   mapping = cmp.mapping.preset.insert({
-    ["<Tab>"] = cmp.mapping.complete(),   -- Trigger autocompletion
+    ["<C-Tab>"] = cmp.mapping.complete(),   -- Trigger autocompletion
     ["<CR>"] = cmp.mapping.confirm({ select = true }),  -- Confirm completion
   }),
 })
 
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
+vim.cmd[[colorscheme tokyonight-moon]]
