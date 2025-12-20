@@ -109,6 +109,9 @@ require("lazy").setup({
     }, 
     {"nvim-telescope/telescope-fzf-native.nvim"},
     {"hrsh7th/cmp-nvim-lsp", opts = {}},
+    {"nvim-treesitter/nvim-treesitter", 
+    lazy = false,
+    build = ':TSUpdate'},
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
@@ -116,6 +119,19 @@ require("lazy").setup({
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
+
+require'nvim-treesitter'.setup {
+  install_dir = vim.fn.stdpath('data') .. '/site'
+}
+
+require'nvim-treesitter'.install { 'c', 'cpp', 'python', 'lua' }
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { '<filetype>' },
+  callback = function() vim.treesitter.start() end,
+})
+
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
 local cmp = require("cmp")
 cmp.setup({
