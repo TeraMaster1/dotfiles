@@ -33,85 +33,203 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
     -- add your plugins here
-    {"nyoom-engineering/oxocarbon.nvim"},
-    {"mason-org/mason.nvim", opts = {}},
-    {"mason-org/mason-lspconfig.nvim", opts = {
-      ensure_installed = {
-        "lua_ls",
-        "pylsp",
-        "clangd",
-        "ts_ls"
-      	},
-	    },
-	  },
-    {"hrsh7th/nvim-cmp", opts = {}},
-    {"neovim/nvim-lspconfig", config = function() 
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      vim.lsp.config('lua_ls', {
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          -- Key mappings for LSP
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true })
-        end,
-      })
+    { "nyoom-engineering/oxocarbon.nvim" },
+    { "mason-org/mason.nvim", opts = {} },
+    {
+      "mason-org/mason-lspconfig.nvim",
+      opts = {
+        ensure_installed = {
+          "lua_ls",
+          "pylsp",
+          "clangd",
+          "ts_ls",
+        },
+      },
+    },
+    { "hrsh7th/nvim-cmp", opts = {} },
+    {
+      "neovim/nvim-lspconfig",
+      config = function()
+        local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        vim.lsp.config("lua_ls", {
+          capabilities = capabilities,
+          on_attach = function(client, bufnr)
+            -- Key mappings for LSP
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gd",
+              "<cmd>lua vim.lsp.buf.definition()<CR>",
+              { noremap = true, silent = true }
+            )
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gr",
+              "<cmd>lua vim.lsp.buf.references()<CR>",
+              { noremap = true, silent = true }
+            )
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gi",
+              "<cmd>lua vim.lsp.buf.implementation()<CR>",
+              { noremap = true, silent = true }
+            )
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gs",
+              "<cmd>lua vim.lsp.buf.signature_help()<CR>",
+              { noremap = true, silent = true }
+            )
 
-      vim.lsp.config('pylsp', {
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          -- Key mappings for LSP
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true })
-        end,
-      })
+            settings = {
+              Lua = {
+                runtime = {
+                  -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                  version = "LuaJIT",
+                  path = vim.split(package.path, ";"),
+                },
+                diagnostics = {
+                  -- Get the language server to recognize the `vim` global
+                  globals = { "vim" },
+                },
+                workspace = {
+                  -- Make the server aware of Neovim runtime files and plugins
+                  library = { vim.env.VIMRUNTIME },
+                  checkThirdParty = false,
+                },
+                telemetry = {
+                  enable = false,
+                },
+              },
+            }
+          end,
+        })
 
-      vim.lsp.config('clangd', {
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          -- Key mappings for LSP
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true })
-        end,
-        settings = {
-          clangd = {
-            completion = { enable = true },
-            diagnostics = { enable = true },
-            arguments = {
-              "--header-insertion=iwyu",  -- Include headers for code completion
-              "--clang-tidy",             -- Enable clang-tidy
-              "--compile-commands-dir=build",  -- Path to compile_commands.json
+        vim.lsp.config("pylsp", {
+          capabilities = capabilities,
+          on_attach = function(client, bufnr)
+            -- Key mappings for LSP
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gd",
+              "<cmd>lua vim.lsp.buf.definition()<CR>",
+              { noremap = true, silent = true }
+            )
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gr",
+              "<cmd>lua vim.lsp.buf.references()<CR>",
+              { noremap = true, silent = true }
+            )
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gi",
+              "<cmd>lua vim.lsp.buf.implementation()<CR>",
+              { noremap = true, silent = true }
+            )
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gs",
+              "<cmd>lua vim.lsp.buf.signature_help()<CR>",
+              { noremap = true, silent = true }
+            )
+          end,
+        })
+
+        vim.lsp.config("clangd", {
+          capabilities = capabilities,
+          on_attach = function(client, bufnr)
+            -- Key mappings for LSP
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gd",
+              "<cmd>lua vim.lsp.buf.definition()<CR>",
+              { noremap = true, silent = true }
+            )
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gr",
+              "<cmd>lua vim.lsp.buf.references()<CR>",
+              { noremap = true, silent = true }
+            )
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gi",
+              "<cmd>lua vim.lsp.buf.implementation()<CR>",
+              { noremap = true, silent = true }
+            )
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gs",
+              "<cmd>lua vim.lsp.buf.signature_help()<CR>",
+              { noremap = true, silent = true }
+            )
+          end,
+          settings = {
+            clangd = {
+              completion = { enable = true },
+              diagnostics = { enable = true },
+              arguments = {
+                "--header-insertion=iwyu", -- Include headers for code completion
+                "--clang-tidy", -- Enable clang-tidy
+                "--compile-commands-dir=build", -- Path to compile_commands.json
+              },
             },
           },
-        },
-      })
+        })
 
-      vim.lsp.config('tsserver', {
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          -- Key mappings for LSP
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true })
-        end,
-      })
+        vim.lsp.config("tsserver", {
+          capabilities = capabilities,
+          on_attach = function(client, bufnr)
+            -- Key mappings for LSP
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gd",
+              "<cmd>lua vim.lsp.buf.definition()<CR>",
+              { noremap = true, silent = true }
+            )
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gr",
+              "<cmd>lua vim.lsp.buf.references()<CR>",
+              { noremap = true, silent = true }
+            )
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gi",
+              "<cmd>lua vim.lsp.buf.implementation()<CR>",
+              { noremap = true, silent = true }
+            )
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              "n",
+              "<leader>gs",
+              "<cmd>lua vim.lsp.buf.signature_help()<CR>",
+              { noremap = true, silent = true }
+            )
+          end,
+        })
+      end,
+    },
 
-    end },
-
-    {"nvim-telescope/telescope.nvim",
-    
-    }, 
-    {"nvim-telescope/telescope-fzf-native.nvim"},
-    {"hrsh7th/cmp-nvim-lsp", opts = {}},
-    {"nvim-treesitter/nvim-treesitter", 
-    lazy = false,
-    build = ':TSUpdate'},
+    { "nvim-telescope/telescope.nvim" },
+    { "nvim-telescope/telescope-fzf-native.nvim" },
+    { "hrsh7th/cmp-nvim-lsp", opts = {} },
+    { "nvim-treesitter/nvim-treesitter", lazy = false, build = ":TSUpdate" },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
@@ -120,15 +238,17 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
-require'nvim-treesitter'.setup {
-  install_dir = vim.fn.stdpath('data') .. '/site'
-}
+require("nvim-treesitter").setup({
+  install_dir = vim.fn.stdpath("data") .. "/site",
+})
 
-require'nvim-treesitter'.install { 'c', 'cpp', 'python', 'lua' }
+require("nvim-treesitter").install({ "c", "cpp", "python", "lua" })
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { '<filetype>' },
-  callback = function() vim.treesitter.start() end,
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "<filetype>" },
+  callback = function()
+    vim.treesitter.start()
+  end,
 })
 
 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
@@ -136,19 +256,19 @@ vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 local cmp = require("cmp")
 cmp.setup({
   sources = {
-    { name = "nvim_lsp" },  -- LSP completion
-    { name = "buffer" },    -- Buffer completion
+    { name = "nvim_lsp" }, -- LSP completion
+    { name = "buffer" }, -- Buffer completion
   },
   mapping = cmp.mapping.preset.insert({
-    ["<C-Tab>"] = cmp.mapping.complete(),   -- Trigger autocompletion
-    ["<CR>"] = cmp.mapping.confirm({ select = true }),  -- Confirm completion
+    ["<C-Tab>"] = cmp.mapping.complete(), -- Trigger autocompletion
+    ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm completion
   }),
 })
 
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
+vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
 
-vim.cmd.colorscheme "oxocarbon"
+vim.cmd.colorscheme("oxocarbon")
