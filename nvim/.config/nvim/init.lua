@@ -229,7 +229,25 @@ require("lazy").setup({
     { "nvim-telescope/telescope.nvim" },
     { "nvim-telescope/telescope-fzf-native.nvim" },
     { "hrsh7th/cmp-nvim-lsp", opts = {} },
-    { "nvim-treesitter/nvim-treesitter", lazy = false, build = ":TSUpdate" },
+    {
+      "nvim-treesitter/nvim-treesitter",
+      lazy = false,
+      build = ":TSUpdate",
+      opts = {
+        highlight = {
+          enable = true,
+        },
+        indent = {
+          enable = true,
+        },
+        ensure_installed = {
+          "c",
+          "cpp",
+          "python",
+          "lua",
+        },
+      },
+    },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
