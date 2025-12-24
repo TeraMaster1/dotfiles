@@ -1,0 +1,6 @@
+#blur enable
+#blur_passes 2
+#blur_radius 7
+#blur_noise 0.1
+shadows disable
+corner_radius 0
