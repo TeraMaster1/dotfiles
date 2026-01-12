@@ -5,7 +5,7 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 #bspc monitor HDMI-A-0 -d I
 #bspc monitor DisplayPort-1 -d II III IV V VI VII VIII IX X
 
-bspc monitor DisplayPort-1 -d I II III IV V VI VII VIII IX X
+bspc monitor DisplayPort-2 -d I II III IV V VI VII VIII IX X
 
 bspc config border_width         1
 bspc config window_gap          12
@@ -15,7 +15,7 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
 #AutoStart applications
-xinput set-prop 12 "libinput Accel Profile Enabled" 0 1 0 &
+xinput set-prop 9 "libinput Accel Profile Enabled" 0 1 0 &
 sxhkd &
 picom --config $HOME/.config/picom/picom.conf -b &
 /usr/bin/emacs --daemon &
