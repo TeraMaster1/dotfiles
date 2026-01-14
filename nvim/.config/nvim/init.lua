@@ -41,7 +41,7 @@ require("lazy").setup({
         ensure_installed = {
           "lua_ls",
           "pylsp",
-	  "rust-analyzer",
+	  "rust_analyzer",
           "clangd",
           "ts_ls",
         },
@@ -51,7 +51,7 @@ require("lazy").setup({
     {
       "neovim/nvim-lspconfig",
       config = function()
-        vim.lsp.enable({ "lua_ls", "rust_analyzer", "clangd"})
+        vim.lsp.enable({ "lua_ls", "rust-analyzer", "clangd"})
         vim.api.nvim_create_autocmd("LspAttach", {
           callback = function (ev)
             local opts = { buffer = ev.buf, silent = true }
@@ -92,21 +92,6 @@ require("lazy").setup({
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
-
-require("nvim-treesitter").setup({
-  install_dir = vim.fn.stdpath("data") .. "/site",
-})
-
-require("nvim-treesitter").install({ "c", "cpp", "python", "lua" })
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "<filetype>" },
-  callback = function()
-    vim.treesitter.start()
-  end,
-})
-
-vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
 local cmp = require("cmp")
 cmp.setup({
