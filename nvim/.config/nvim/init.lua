@@ -34,6 +34,13 @@ require("lazy").setup({
   spec = {
     -- add your plugins here
     { "nyoom-engineering/oxocarbon.nvim" },
+    {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true
+    -- use opts = {} for passing setup options
+    -- this is equivalent to setup({}) function
+    },
     { "mason-org/mason.nvim", opts = {} },
     {
       "mason-org/mason-lspconfig.nvim",
