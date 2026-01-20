@@ -50,7 +50,6 @@ require("lazy").setup({
           "pylsp",
 	  "rust_analyzer",
           "clangd",
-          "ts_ls",
         },
       },
     },
