@@ -18,7 +18,5 @@ export PATH="/home/fjodor/.local/bin:~/.local/share/smgo-manager:~/go/bin:~/.con
 bind 'set show-all-if-ambiguous on'
 bind 'TAB:menu-complete'
 
-eval "$(starship init bash)"
-
 #XKB_DEFAULT_LAYOUT=se
 #XKB_DEFAULT_VARIANT=dvorak

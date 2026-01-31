@@ -4,4 +4,4 @@ end
 
 set -U fish_greeting
 
-fish_add_path ~/.local/bin ~/.local/share/smgo-manager ~/go/bin
+fish_add_path ~/.local/bin ~/.local/share/smgo-manager ~/go/bin /opt/rider/bin/
