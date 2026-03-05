@@ -36,7 +36,13 @@ exec --no-startup-id dbus-update-activation-environment --all
 exec export $XDG_SESSION_TYPE = wayland
 exec export $WAYLAND_DISPLAY = wayland_1
 exec export $XDG_CURRENT_DESKTOP = Sway
-exec kwalletd6
+exec waypaper --random
+exec while : \
+            do\
+            waybar --random \
+            sleep 600 \
+            done\
+
 ### Idle configuration
 #
 # Example configuration:
@@ -63,7 +69,7 @@ exec swayidle -w timeout 300 'swaymsg "output * power off"' resume 'swaymsg "out
 
 input * {
     accel_profile "flat"
-    pointer_accel 1
+    pointer_accel 0
     xkb_layout se,se,ru
     xkb_options grp:ctrls_toggle,ctrl:nocaps
     xkb_variant dvorak,
@@ -79,7 +85,7 @@ input * {
     bindsym $mod+Return exec $term
 
     # Kill focused window
-    bindsym $mod+q kill
+    bindsym $mod+o kill
 
     # Start your launcher
     bindsym $mod+Space exec $menu
