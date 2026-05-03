@@ -6,6 +6,9 @@ vim.opt.expandtab = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -35,11 +38,11 @@ require("lazy").setup({
     -- add your plugins here
     { "nyoom-engineering/oxocarbon.nvim" },
     {
-    'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    config = true
-    -- use opts = {} for passing setup options
-    -- this is equivalent to setup({}) function
+      "windwp/nvim-autopairs",
+      event = "InsertEnter",
+      config = true,
+      -- use opts = {} for passing setup options
+      -- this is equivalent to setup({}) function
     },
     { "mason-org/mason.nvim", opts = {} },
     {
@@ -48,7 +51,7 @@ require("lazy").setup({
         ensure_installed = {
           "lua_ls",
           "pylsp",
-	  "rust_analyzer",
+          "rust_analyzer",
           "clangd",
         },
       },
@@ -57,16 +60,17 @@ require("lazy").setup({
     {
       "neovim/nvim-lspconfig",
       config = function()
-        vim.lsp.enable({ "lua_ls", "rust-analyzer", "clangd"})
+        vim.lsp.enable({ "lua_ls", "rust-analyzer", "clangd" })
         vim.api.nvim_create_autocmd("LspAttach", {
-          callback = function (ev)
+          callback = function(ev)
             local opts = { buffer = ev.buf, silent = true }
             vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
             vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
             vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
             vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          end})
-  	end,
+          end,
+        })
+      end,
     },
     { "nvim-telescope/telescope.nvim" },
     { "nvim-telescope/telescope-fzf-native.nvim" },
@@ -87,9 +91,20 @@ require("lazy").setup({
           "cpp",
           "python",
           "lua",
-          "rust"
+          "rust",
         },
       },
+    },
+    {
+      "nvim-tree/nvim-tree.lua",
+      version = "*",
+      lazy = false,
+      dependencies = {
+        "nvim-tree/nvim-web-devicons",
+      },
+      config = function()
+        require("nvim-tree").setup({})
+      end,
     },
   },
   -- Configure any other settings here. See the documentation for more details.
@@ -110,6 +125,32 @@ cmp.setup({
     ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm completion
   }),
 })
+
+
+local function my_on_attach(bufnr)
+    local api = require "nvim-tree.api"
+
+    local function opts(desc)
+      return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    end
+
+    -- default mappings
+    api.map.on_attach.default(bufnr)
+
+    -- custom mappings
+    vim.keymap.set("n", "<C-t>", api.tree.change_root_to_parent,        opts("Up"))
+    vim.keymap.set("n", "?",     api.tree.toggle_help,                  opts("Help"))
+  end
+
+  -- pass to setup along with your other config
+require("nvim-tree").setup({
+on_attach = my_on_attach,
+})
+
+local tree = require("nvim-tree.api")
+tree.tree.open()
+vim.keymap.set("n", "<leader>ft", tree.tree.open, {desc = "Open file tree"})
+vim.keymap.set("n", "<leader>fc", tree.tree.close, {desc = "Close file tree"})
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
