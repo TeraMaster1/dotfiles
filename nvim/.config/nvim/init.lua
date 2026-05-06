@@ -148,7 +148,6 @@ on_attach = my_on_attach,
 })
 
 local tree = require("nvim-tree.api")
-tree.tree.open()
 vim.keymap.set("n", "<leader>ft", tree.tree.open, {desc = "Open file tree"})
 vim.keymap.set("n", "<leader>fc", tree.tree.close, {desc = "Close file tree"})
 
