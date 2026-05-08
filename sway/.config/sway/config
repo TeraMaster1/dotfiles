@@ -84,7 +84,7 @@ input * {
     bindsym $mod+Return exec $term
 
     # Kill focused window
-    bindsym $mod+o kill
+    bindsym $mod+w kill
 
     # Start your launcher
     bindsym $mod+Space exec $menu
@@ -239,7 +239,7 @@ bindsym $mod+r mode "resize"
 default_border none
 gaps inner 5
 gaps outer 3
-default_border pixel 1
+default_border pixel 2
 
 set $clear #ffffff00
 
