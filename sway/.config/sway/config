@@ -70,9 +70,8 @@ exec swayidle -w timeout 300 'swaymsg "output * power off"' resume 'swaymsg "out
 input * {
     accel_profile "flat"
     pointer_accel 0
-    xkb_layout se,se,ru
-    xkb_options grp:ctrls_toggle,ctrl:nocaps
-    xkb_variant dvorak,
+    xkb_layout se
+    xkb_options ctrl:nocaps
 }
 
 ### Key bindings
