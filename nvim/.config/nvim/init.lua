@@ -53,6 +53,8 @@ require("lazy").setup({
           "pylsp",
           "rust_analyzer",
           "clangd",
+          "zls",
+          "csharp-language-server"
         },
       },
     },
@@ -92,6 +94,7 @@ require("lazy").setup({
           "python",
           "lua",
           "rust",
+          "zig"
         },
       },
     },

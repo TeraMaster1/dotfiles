@@ -8,3 +8,5 @@ fish_add_path ~/.local/bin ~/.local/share/smgo-manager ~/go/bin /opt/rider/bin/
 
 set -x DOTNET_ROOT /usr/lib64/dotnet
 set -x PATH $DOTNET_ROOT $PATH
+
+set -x JAVA_HOME /usr/lib64/openjdk-25/
