@@ -54,7 +54,6 @@ require("lazy").setup({
           "rust_analyzer",
           "clangd",
           "zls",
-          "csharp-language-server"
         },
       },
     },
