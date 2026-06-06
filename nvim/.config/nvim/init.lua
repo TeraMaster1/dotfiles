@@ -54,6 +54,7 @@ require("lazy").setup({
           "rust_analyzer",
           "clangd",
           "zls",
+          "asm-lsp"
         },
       },
     },
@@ -61,7 +62,23 @@ require("lazy").setup({
     {
       "neovim/nvim-lspconfig",
       config = function()
-        vim.lsp.enable({ "lua_ls", "rust-analyzer", "clangd" })
+          vim.lsp.config("asm_lsp", {
+            root_markers = {
+                ".git",
+                ".asm-lsp.toml",
+                "Makefile",
+            },
+--            root_dir = function(bufnr, on_dir)
+ --           on_dir(vim.fn.getcwd())
+            --end,
+        })
+        vim.lsp.enable({
+          "lua_ls",
+          "pylsp",
+          "rust_analyzer",
+          "clangd",
+          "zls",
+          "asm_lsp" })
         vim.api.nvim_create_autocmd("LspAttach", {
           callback = function(ev)
             local opts = { buffer = ev.buf, silent = true }
@@ -93,7 +110,8 @@ require("lazy").setup({
           "python",
           "lua",
           "rust",
-          "zig"
+          "zig",
+          "asm"
         },
       },
     },

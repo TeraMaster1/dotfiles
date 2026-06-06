@@ -36,7 +36,7 @@ exec --no-startup-id dbus-update-activation-environment --all
 exec export $XDG_SESSION_TYPE = wayland
 exec export $WAYLAND_DISPLAY = wayland_1
 exec export $XDG_CURRENT_DESKTOP = Sway
-exec ~/dotfiles/hyprland/.config/hypr/wallpaper.sh 
+exec ~/dotfiles/sway/.config/sway/wallpaper.sh 
 
 ### Idle configuration
 #
