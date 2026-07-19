@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 config = {
-  font_size = 17.0,
+  font_size = 16.0,
   enable_tab_bar = false,
   enable_scroll_bar = false,
   color_scheme = 'Brogrammer',
