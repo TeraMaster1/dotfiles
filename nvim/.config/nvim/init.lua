@@ -78,7 +78,7 @@ require("lazy").setup({
           "rust_analyzer",
           "clangd",
           "zls",
-          "asm_lsp" })
+          "ocaml-lsp" })
         vim.api.nvim_create_autocmd("LspAttach", {
           callback = function(ev)
             local opts = { buffer = ev.buf, silent = true }
@@ -111,7 +111,6 @@ require("lazy").setup({
           "lua",
           "rust",
           "zig",
-          "asm"
         },
       },
     },
