@@ -54,24 +54,13 @@ require("lazy").setup({
           "rust_analyzer",
           "clangd",
           "zls",
-          "asm-lsp"
         },
       },
     },
     { "hrsh7th/nvim-cmp", opts = {} },
     {
       "neovim/nvim-lspconfig",
-      config = function()
-          vim.lsp.config("asm_lsp", {
-            root_markers = {
-                ".git",
-                ".asm-lsp.toml",
-                "Makefile",
-            },
---            root_dir = function(bufnr, on_dir)
- --           on_dir(vim.fn.getcwd())
-            --end,
-        })
+      config = function() 
         vim.lsp.enable({
           "lua_ls",
           "pylsp",

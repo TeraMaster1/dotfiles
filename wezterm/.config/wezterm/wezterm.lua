@@ -8,7 +8,7 @@ config = {
   font = wezterm.font 'JetBrains Mono',
   default_cursor_style = "BlinkingBar",
   front_end = "OpenGL",
-  enable_wayland = false
+  enable_wayland = true
 }
 
 return config
