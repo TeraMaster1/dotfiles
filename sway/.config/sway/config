@@ -14,11 +14,11 @@ set $down J
 set $up K
 set $right H
 # Your preferred terminal emulator
-set $term wezterm
+set $term kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu wezterm start -- bash ~/dotfiles/scripts/launcher.sh
+set $menu kitty bash ~/dotfiles/scripts/launcher.sh
 
 ### Output configuration
 #
@@ -30,7 +30,7 @@ set $menu wezterm start -- bash ~/dotfiles/scripts/launcher.sh
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-exec gentoo-pipewire-launcher restart
+# exec gentoo-pipewire-launcher restart
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec --no-startup-id dbus-update-activation-environment --all
 exec export $XDG_SESSION_TYPE = wayland
@@ -251,4 +251,4 @@ client.unfocused         #333333  #222222     #888888  #292d2e    $clear
 client.focused           #22207f  #555055     #ffffff  #33335f
 
 # include /etc/sway/config.d/*
-include ~/.config/sway/config.d/*
+# include ~/.config/sway/config.d/*

@@ -9,7 +9,7 @@ config = {
   default_cursor_style = "BlinkingBar",
   front_end = "OpenGL",
   enable_wayland = true,
-  window_background_opacity = 0.95
+  window_background_opacity = 1
 }
 
 return config
