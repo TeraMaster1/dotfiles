@@ -44,6 +44,7 @@ local menu        = "kitty bash ~/dotfiles/scripts/launcher.sh"
 --
 hl.on("hyprland.start", function () 
     hl.exec_cmd("~/dotfiles/sway/.config/sway/wallpaper.sh")
+    hl.exec_cmd("hypridle")
 --   hl.exec_cmd(terminal)
 --   hl.exec_cmd("nm-applet")
 --   hl.exec_cmd("waybar & hyprpaper & firefox")
@@ -86,13 +87,13 @@ hl.permission("/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", "screencop
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
     general = {
-        gaps_in  = 5,
-        gaps_out = 20,
+        gaps_in  = 2,
+        gaps_out = 5,
 
-        border_size = 2,
+        border_size = 1,
 
         col = {
-            active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
+            active_border   = { colors = {"rgba(5BCEFAFF)", "rgba(F5A9B8FF)"}, angle = 180 },
             inactive_border = "rgba(595959aa)",
         },
 
@@ -102,11 +103,11 @@ hl.config({
         -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
         allow_tearing = false,
 
-        layout = "dwindle",
+        layout = "master",
     },
 
     decoration = {
-        rounding       = 10,
+        rounding       = 2,
         rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows
@@ -129,7 +130,7 @@ hl.config({
     },
 
     animations = {
-        enabled = true,
+        enabled = false,
     },
 })
 
