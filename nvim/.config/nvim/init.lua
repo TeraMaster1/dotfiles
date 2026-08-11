@@ -1,4 +1,4 @@
-vim.opt.tabstop = 4
+    vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
@@ -36,7 +36,6 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
     -- add your plugins here
-    { "nyoom-engineering/oxocarbon.nvim" },
     {
       "windwp/nvim-autopairs",
       event = "InsertEnter",
@@ -117,7 +116,6 @@ require("lazy").setup({
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "oxocarbon" } },
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
@@ -165,4 +163,3 @@ vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live gr
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
 
-vim.cmd.colorscheme("oxocarbon")
