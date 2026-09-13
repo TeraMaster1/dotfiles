@@ -1,4 +1,4 @@
-    vim.opt.tabstop = 4
+vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
@@ -57,23 +57,30 @@ require("lazy").setup({
       },
     },
     { "hrsh7th/nvim-cmp", opts = {} },
+    { "dchinmay2/clangd_extensions.nvim" },
     {
       "neovim/nvim-lspconfig",
-      config = function() 
+      config = function()
         vim.lsp.enable({
           "lua_ls",
           "pylsp",
           "rust_analyzer",
           "clangd",
           "zls",
-          "ocaml-lsp" })
+        })
         vim.api.nvim_create_autocmd("LspAttach", {
           callback = function(ev)
             local opts = { buffer = ev.buf, silent = true }
             vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
             vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+            vim.keymap.set("n", "<leader>hh", vim.lsp.buf.rename, opts)
             vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+            vim.keymap.set(
+              "n",
+              "<leader>h",
+              "<cmd>ClangdSwitchSourceHeader<CR>",
+              { desc = "Switch between Source/Header" }
+            )
           end,
         })
       end,
@@ -129,37 +136,36 @@ cmp.setup({
   mapping = cmp.mapping.preset.insert({
     ["<C-Tab>"] = cmp.mapping.complete(), -- Trigger autocompletion
     ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm completion
+    ["<Tab>"] = cmp.mapping.select_next_item(),
   }),
 })
 
-
 local function my_on_attach(bufnr)
-    local api = require "nvim-tree.api"
+  local api = require("nvim-tree.api")
 
-    local function opts(desc)
-      return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-    end
-
-    -- default mappings
-    api.map.on_attach.default(bufnr)
-
-    -- custom mappings
-    vim.keymap.set("n", "<C-t>", api.tree.change_root_to_parent,        opts("Up"))
-    vim.keymap.set("n", "?",     api.tree.toggle_help,                  opts("Help"))
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end
 
-  -- pass to setup along with your other config
+  -- default mappings
+  api.map.on_attach.default(bufnr)
+
+  -- custom mappings
+  vim.keymap.set("n", "<C-t>", api.tree.change_root_to_parent, opts("Up"))
+  vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+end
+
+-- pass to setup along with your other config
 require("nvim-tree").setup({
-on_attach = my_on_attach,
+  on_attach = my_on_attach,
 })
 
 local tree = require("nvim-tree.api")
-vim.keymap.set("n", "<leader>ft", tree.tree.open, {desc = "Open file tree"})
-vim.keymap.set("n", "<leader>fc", tree.tree.close, {desc = "Close file tree"})
+vim.keymap.set("n", "<leader>ft", tree.tree.open, { desc = "Open file tree" })
+vim.keymap.set("n", "<leader>fc", tree.tree.close, { desc = "Close file tree" })
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-
