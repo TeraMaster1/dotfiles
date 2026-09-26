@@ -37,6 +37,10 @@ require("lazy").setup({
   spec = {
     -- add your plugins here
     {
+      "nvim-lualine/lualine.nvim",
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
+    {
       "windwp/nvim-autopairs",
       event = "InsertEnter",
       config = true,
@@ -51,7 +55,7 @@ require("lazy").setup({
           "lua_ls",
           "pylsp",
           "rust_analyzer",
-          "clangd",
+
           "zls",
         },
       },
@@ -120,6 +124,10 @@ require("lazy").setup({
         require("nvim-tree").setup({})
       end,
     },
+    {
+      "stevearc/conform.nvim",
+      opts = {},
+    },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
@@ -158,6 +166,80 @@ end
 -- pass to setup along with your other config
 require("nvim-tree").setup({
   on_attach = my_on_attach,
+})
+
+require("conform").setup({
+  formatters_by_ft = {
+    lua = { "stylua" },
+    rust = { "rustfmt", lsp_format = "fallback" },
+  },
+
+  format_on_save = {
+    -- These options will be passed to conform.format()
+    timeout_ms = 500,
+    lsp_format = "fallback",
+  },
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function(args)
+    require("conform").format({ bufnr = args.buf })
+  end,
+})
+
+require("lualine").setup({
+  options = {
+    icons_enabled = true,
+    theme = "auto",
+    component_separators = { left = "", right = "" },
+    section_separators = { left = "", right = "" },
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    always_show_tabline = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+      refresh_time = 16, -- ~60fps
+      events = {
+        "WinEnter",
+        "BufEnter",
+        "BufWritePost",
+        "SessionLoadPost",
+        "FileChangedShellPost",
+        "VimResized",
+        "Filetype",
+        "CursorMoved",
+        "CursorMovedI",
+        "ModeChanged",
+      },
+    },
+  },
+  sections = {
+    lualine_a = { "mode" },
+    lualine_b = { "branch", "diff" },
+    lualine_c = { "diagnostics" },
+    lualine_x = { "filename" },
+    lualine_y = { "encoding", "fileformat", "filetype" },
+    lualine_z = { "location" },
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { "filename" },
+    lualine_x = { "location" },
+    lualine_y = {},
+    lualine_z = {},
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {},
 })
 
 local tree = require("nvim-tree.api")
