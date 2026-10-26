@@ -4,7 +4,7 @@ end
 
 set -U fish_greeting
 
-fish_add_path ~/.local/bin ~/.local/share/smgo-manager ~/go/bin /opt/rider/bin/ ~/.cargo/bin ~/.opam/default/bin ~/.local/bin/toolbox/bin/
+fish_add_path ~/.local/bin ~/.local/share/smgo-manager ~/go/bin /opt/rider/bin/ ~/.cargo/bin ~/.opam/default/bin ~/.local/bin/toolbox/bin/ /usr/lib/emsdk /usr/lib/emsdk/upstream/emscripten
 
 set -x DOTNET_ROOT /usr/lib64/dotnet
 set -x PATH $DOTNET_ROOT $PATH
