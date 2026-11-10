@@ -1,0 +1,121 @@
+@define-color accent #afa193;
+@define-color fg #f6f1ea;
+@define-color bg #101010;
+@define-color bg-alt #252525;
+
+* {
+    font-family: Symbols Nerd Font Mono;
+    font-size: 16px;
+    padding: 2px 4px 1px 4px;
+    border-radius: 4px;
+    background-color: @bg;
+    color: @fg;
+}
+
+window#waybar {
+    color: @fg;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+
+button {
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+    border: @bg-alt;
+    background: @accent;
+}
+
+#workspaces button {
+}
+
+#workspaces button:hover {
+    background: @bg-alt;
+
+}
+
+#workspaces button.focused, #workspaces button.active {
+    color: @fg;
+    font-weight: bold;
+}
+
+#workspaces button.urgent {
+    background-color: @accent;
+}
+
+#mode {
+}
+
+#clock,
+#battery,
+#temperature,
+#power-profiles-daemon,
+
+#window,
+#workspaces {
+    margin: 0 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#clock {
+}
+
+#battery {
+}
+
+#battery.charging, #battery.plugged {
+    background-color: @bg-alt;
+}
+
+@keyframes blink {
+    to {
+        background-color: @fg;
+        color: @bg;
+    }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#power-profiles-daemon {
+}
+
+#power-profiles-daemon.performance {
+}
+
+#power-profiles-daemon.balanced {
+}
+
+#power-profiles-daemon.power-saver {
+}
+
+label:focus {
+}
+
+#temperature {
+}
+
+#temperature.critical {
+    background-color: @accent;
+}

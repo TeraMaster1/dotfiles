@@ -14,11 +14,11 @@ set $down J
 set $up K
 set $right H
 # Your preferred terminal emulator
-set $term kitty
+set $term footclient
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu kitty bash ~/dotfiles/scripts/launcher.sh
+set $menu $term bash ~/dotfiles/scripts/launcher.sh
 
 ### Output configuration
 #
@@ -30,14 +30,16 @@ set $menu kitty bash ~/dotfiles/scripts/launcher.sh
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-# exec gentoo-pipewire-launcher restart
+exec foot -s
+exec gentoo-pipewire-launcher restart
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+# exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec --no-startup-id dbus-update-activation-environment --all
-# exec export $XDG_SESSION_TYPE = wayland
-# exec export $WAYLAND_DISPLAY = wayland_1
-# exec export $XDG_CURRENT_DESKTOP = Sway
+exec export $XDG_SESSION_TYPE = wayland
+exec export $WAYLAND_DISPLAY = wayland_1
+exec export $XDG_CURRENT_DESKTOP = Sway
 exec ~/dotfiles/sway/.config/sway/wallpaper.sh 
+exec waybar
 # setenv XDG_CURRENT_DESKTOP sway
 # setenv XDG_SESSION_DESKTOP sway
 
@@ -46,13 +48,17 @@ exec ~/dotfiles/sway/.config/sway/wallpaper.sh
 # Example configuration:
 #
 exec swayidle -w timeout 300 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
-for_window { 
-    [app_id="librewolf"] inhibit_idle focus
-    [window_role="pop-up"] floating enable
-    [window_role="bubble"] floating enable
-    [window_role="dialog"] floating enable
-    [window_type="dialog"] floating enable
-}
+for_window [app_id="librewolf"] inhibit_idle focus
+for_window [window_role = "pop-up"] floating enable
+for_window [window_role = "bubble"] floating enable
+for_window [window_role = "dialog"] floating enable
+for_window [window_type = "dialog"] floating enable
+for_window [window_role = "task_dialog"] floating enable
+for_window [window_type = "menu"] floating enable
+for_window [app_id = "floating"] floating enable
+for_window [app_id = "floating_update"] floating enable, resize set width 1000px height 600px
+for_window [class = "(?i)pinentry"] floating enable
+for_window [title = "Administrator privileges required"] floating enable
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -221,6 +227,17 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
+# tip: you might consider adding `--limit 1.0` to avoid going over 100% volume
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 5%-
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
+#
+# bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
+# bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 5%-
+# bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume --limit 1.0 @DEFAULT_SINK@ 5%+
+# bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+#
 #
 # Status Bar:
 #
